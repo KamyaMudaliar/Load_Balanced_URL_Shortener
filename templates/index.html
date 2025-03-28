@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>URL Shortener</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 50px;
+        }
+        input, button {
+            padding: 10px;
+            font-size: 16px;
+            margin: 10px;
+        }
+        #result {
+            margin-top: 20px;
+            font-size: 18px;
+        }
+        .error {
+            color: red;
+        }
+    </style>
+</head>
+<body>
+    <h2>URL Shortener</h2>
+    
+    <input type="text" id="long_url" placeholder="Enter your long URL here" required>
+    <button onclick="shortenURL()">Shorten URL</button>
+
+    <div id="result"></div>
+
+    <script>
+        function shortenURL() {
+            const longUrl = document.getElementById("long_url").value.trim();
+            if (!longUrl) {
+                document.getElementById("result").innerHTML = "<p class='error'>URL is required</p>";
+                return;
+            }
+
+            fetch("http://127.0.0.1:5000/shorten", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ url: longUrl })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.error) {
+                    document.getElementById("result").innerHTML = "<p class='error'>" + data.error + "</p>";
+                } else {
+                    document.getElementById("result").innerHTML = `
+                        <p>Shortened URL: <a href="${data.short_url}" target="_blank">${data.short_url}</a></p>
+                    `;
+                }
+            })
+            .catch(error => {
+                document.getElementById("result").innerHTML = "<p class='error'>Error: " + error.message + "</p>";
+            });
+        }
+    </script>
+</body>
+</html>
