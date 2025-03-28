@@ -8,7 +8,7 @@ import time
 app = Flask(__name__)
 CORS(app)  # Enable CORS for all routes
 
-r = redis.Redis(host='redis-container', port=6379, decode_responses=True)
+r = redis.Redis(host='redis-service', port=6379, decode_responses=True)
 
 BASE_URL = "http://127.0.0.1:5000/"
 

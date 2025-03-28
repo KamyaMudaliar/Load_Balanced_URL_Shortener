@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: url-shortener-service
+spec:
+  selector:
+    app: url-shortener
+  ports:
+    - protocol: TCP
+      port: 80  # Expose it on port 80
+      targetPort: 5000  # Redirect traffic to port 5000 inside the container
+  type: LoadBalancer  # Expose the service to external traffic

@@ -1,12 +1,12 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: redis-service
+  name: redis-service  # This is the name the URL shortener will use to access Redis
 spec:
   selector:
-    app: redis
+    app: redis  # Selects the Redis Pod
   ports:
     - protocol: TCP
-      port: 6379
-      targetPort: 6379
-  type: ClusterIP
+      port: 6379  # Service port
+      targetPort: 6379  # Container's Redis port
+  clusterIP: None  # Creates a headless service for direct Pod-to-Pod communication
