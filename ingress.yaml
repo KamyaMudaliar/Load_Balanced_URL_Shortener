@@ -1,0 +1,19 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: url-shortener-ingress
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /  # Ensures correct path forwarding
+spec:
+  ingressClassName: nginx  # Explicitly specify the Ingress class
+  rules:
+  - host: url-shortener.local
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: url-shortener-service  # Make sure this service exists
+            port:
+              number: 80  # This must match the service's exposed port

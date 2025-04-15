@@ -15,11 +15,27 @@ spec:
       containers:
         - name: url-shortener
           image: url-shortener  # No need for repository prefix
-          imagePullPolicy: Never  # Prevent Kubernetes from pulling from Docker Hub
+          imagePullPolicy: Never
           ports:
             - containerPort: 5000
           env:
             - name: REDIS_HOST
-              value: redis-service
+              valueFrom:
+                configMapKeyRef:
+                  name: url-config
+                  key: REDIS_HOST
             - name: REDIS_PORT
-              value: "6379"
+              valueFrom:
+                configMapKeyRef:
+                  name: url-config
+                  key: REDIS_PORT
+            - name: REDIS_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: redis-secret
+                  key: REDIS_PASSWORD
+          resources:
+            requests:
+              cpu: "100m"
+            limits:
+              cpu: "250m"

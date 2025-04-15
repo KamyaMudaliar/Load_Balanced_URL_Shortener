@@ -7,6 +7,7 @@ spec:
     app: url-shortener
   ports:
     - protocol: TCP
-      port: 80  # Expose it on port 80
-      targetPort: 5000  # Redirect traffic to port 5000 inside the container
-  type: LoadBalancer  # Expose the service to external traffic
+      port: 80              # External service port
+      targetPort: 5000      # Flask container port
+      nodePort: 30000       # Fixed port on Minikube
+  type: NodePort            # Correct type for Minikube with a fixed port

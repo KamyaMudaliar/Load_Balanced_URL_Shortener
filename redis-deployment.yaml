@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: redis-deployment
 spec:
-  replicas: 1  # Run a single Redis instance
+  replicas: 1  
   selector:
     matchLabels:
       app: redis
@@ -14,6 +14,6 @@ spec:
     spec:
       containers:
         - name: redis
-          image: redis:latest  # Official Redis image
+          image: redis:latest  
           ports:
-            - containerPort: 6379  # Expose Redis port
+            - containerPort: 6379  
