@@ -7,7 +7,7 @@ spec:
     app: url-shortener
   ports:
     - protocol: TCP
-      port: 80              # External service port
-      targetPort: 5000      # Flask container port
-      nodePort: 30000       # Fixed port on Minikube
-  type: NodePort            # Correct type for Minikube with a fixed port
+      port: 80              # The port the service exposes within the cluster
+      targetPort: 5000      # The port that the Flask app listens on inside the container
+      nodePort: 30000       # The fixed port on the Minikube node for external access
+  type: NodePort           # Service type to expose the service externally
