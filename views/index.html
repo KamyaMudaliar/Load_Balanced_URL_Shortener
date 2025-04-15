@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kubernetes Pod Logs</title>
+</head>
+<body>
+    <h1>Kubernetes Pod Logs</h1>
+    
+    <!-- Form to select a pod -->
+    <form action="/logs" method="post">
+        <label for="pod_name">Select a Pod:</label>
+        <select name="pod_name" id="pod_name">
+            {% for pod in pods %}
+                <option value="{{ pod }}" {% if pod == selected_pod %}selected{% endif %}>{{ pod }}</option>
+            {% endfor %}
+        </select>
+        <button type="submit">Get Logs</button>
+    </form>
+
+    {% if logs %}
+        <h2>Logs for Pod: {{ selected_pod }}</h2>
+        <pre>{{ logs }}</pre>
+    {% endif %}
+
+    <h3>All Pods:</h3>
+    <ul>
+        {% for pod in pods %}
+            <li>{{ pod }}</li>
+        {% endfor %}
+    </ul>
+
+</body>
+</html>
