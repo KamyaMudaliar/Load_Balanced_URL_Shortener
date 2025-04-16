@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: url-shortener
-          image: url-shortener  # No need for repository prefix
+          image: url-shortener 
           imagePullPolicy: Never
           ports:
             - containerPort: 5000
